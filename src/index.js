@@ -25,10 +25,9 @@ const colRef = collection(db, 'books')
 getDocs(colRef)
   .then(snapshot => {
     // console.log(snapshot.docs)
-    let books = []
-    snapshot.docs.forEach(doc => {
-      books.push({ ...doc.data(), id: doc.id })
-    })
+    const books = snapshot.docs.map(doc => 
+      ({ ...doc.data(), id: doc.id })
+    )
     console.log(books)
   })
   .catch(err => {
