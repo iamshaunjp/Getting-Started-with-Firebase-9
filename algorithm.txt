@@ -1,0 +1,61 @@
+Getting Data from Firestore
+
+Step-0 : Write the configs first
+            example : 
+                const configs = { 
+                    /* 
+                        your configs
+
+                    */
+                }
+
+Step-1 : Initializing 
+
+    a. First we have to initialize the app, to do so , first we have to import {initializeApp} from 'firebase/app ;
+    b. Then initialize the app using initializeApp(configs) ;
+
+Step-2 : Getting Firestore database 
+
+    a. import the getFirestore { getFirestore } function from 'firebase/firestore'
+    b. get the firestore database using getFirestore() function
+            example : const db = getFirestore() ;
+
+Step-3 : getting collection from the database
+
+    a. import the { collect } from 'firebase/firestore'
+    b. get the column using collection(db, 'collection_name')
+            example : const colRef = collection(db,'books')
+
+Step-4 : invoke/call the function to fetch database
+    
+    a. import { getDocs } from 'firebase/firestore'
+    b. invoke getDocs(colRef)
+            .then(......){
+                /* 
+                    some logics here
+                */
+            }
+    c.  Usage : 
+        getDocs(colRef)
+            .then(snapshot){
+                
+
+                /* Every snapshot has a array named 'docs' , the array contains object, the desired Data are stored inside the      objects
+                 iterate over the 'docs' array
+                 then insert every objects in an array. */
+
+
+                let books = [];
+
+                snapshot.docs.forEach(
+                    (doc) => {
+                        books.push( {...doc.data()} )  // Remember to keep the '...doc.data()' inside curely braces {}
+                    }
+                )
+
+                /*
+                    Done....
+                    All data are stored in books array
+                    Now we can use map function to iterate over the array , and can access the data fields using : 
+                        books.map(anything) => anything.field_name // such as anything.author ;
+            }
